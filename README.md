@@ -42,7 +42,7 @@ A "set" is made up of three cards, when for each of their properties the followi
 - they either share the same variation of that property (e.g., all the same color)
 - or they all have unique variations of that property (e.g., 1 2 3, but not 1 2 2)
 
-The set as shown in the figure would still be valid if all card had the same color
+The set as shown in the figure would still be valid if all cards had the same color, but not if the third card would also be diamond-shaped.
 
 <fig>
   <img src="https://github.com/Josef-Hlink/Set/blob/main/assets/set.png" width="256" alt="example cards"/>
