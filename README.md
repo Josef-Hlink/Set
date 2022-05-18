@@ -9,9 +9,11 @@ I created this for two reasons:
 1. my little brother always beats me in this card game.
 2. i was interested in its mathematical properties.
 
-###Dependencies
+### Dependencies
 
-None, only standard Python libraries.
+Python 3.10, because I'm using `TypeAlias`  
+Python 3.9 for type hinting with collections (`set`) and for using `itertools.product`  
+Python 3.7 will probably work if you remove all type hinting and replace `itertools.product` with a nested for-loop in a generator expression
 
 ### Usage
 
@@ -69,10 +71,19 @@ Or phrasing the problem differently, making it easier to talk about mathematical
 
 I recommend taking a look at Charlotte Chan's [answer](http://web.math.princeton.edu/~charchan/SET.pdf), and for verification of her example, taking a look at my [antiset.py](https://github.com/Josef-Hlink/Set/blob/main/additional/antiset.py).
 
-### My approach
+My approach
+-----------
 
 In main.py, I run a set number of games and keep track of the largest number of cards that has been present on the table.
 This number minus one should be the answer to the question about the biggest "anti-set" that has been encountered.
 
-100.000 games takes roughly 5 minutes, and the largest number of cards present on the table is ±18.
-This is to be expected, but more thorough experiments could be run in the hopes of reaching 21, which would be the limit Charlotte Chan showed an example of.
+10M games took my MacBook Air M1 roughly hours, and the largest number of cards present on the table was only 19.
+Unless an even better example can be thought of than the one that Charlotte Chan showed, the theoretical limit should be 21.
+
+After running this experiment, I added a `@cache` decorator to `is_set()`, resulting in a speedup of ±300%.
+Sadly, this run yielded the same results as the previous one: an anti-set of just 18 cards.
+The cache stores every _set_ candidate it encounters in a hash-map, so it will never have to do the calculation for the same set of arguments twice.
+This is feasible, because in one game, many calls to the function will be the exact same due to the fact that the board configuration largely remains the same from one round to the next.
+
+A more thorough run will be done soon, when even more optimizations are implemented.
+In order to encounter the exact configuration where 20 cards exactly compose Chan's "anti-set", upwards of 10<sup>120</sup> (81!) would be needed.
