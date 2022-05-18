@@ -1,30 +1,30 @@
 """
-Charlotte Chan's example of 20 cards that make up an "anti-set"
+Script to verify Charlotte Chan's example of 20 cards that make up an "anti-set"
 """
 
 from itertools import combinations
 
 TABLE = {
-    (1,'r','~','▓'),
-    (3,'r','~','▓'),
-    (1,'r','○','▓'),
-    (3,'r','○','▓'),
-    (2,'r','□','▒'),
-    (2,'r','~','░'),
-    (1,'r','□','░'),
-    (3,'r','□','░'),
-    (2,'r','○','░'),
-    (2,'g','□','▓'),
-    (2,'g','□','░'),
-    (2,'b','~','▓'),
-    (1,'b','□','▓'),
-    (3,'b','□','▓'),
-    (2,'b','○','▓'),
-    (2,'b','□','▒'),
-    (1,'b','~','░'),
-    (3,'b','~','░'),
-    (1,'b','○','░'),
-    (3,'b','○','░'),
+    (0,0,0,0),
+    (2,0,0,0),
+    (0,0,1,0),
+    (2,0,1,0),
+    (1,0,2,1),
+    (1,0,0,2),
+    (0,0,2,2),
+    (2,0,2,2),
+    (1,0,1,2),
+    (1,1,2,0),
+    (1,1,2,2),
+    (1,2,0,0),
+    (0,2,2,0),
+    (2,2,2,0),
+    (1,2,1,0),
+    (1,2,2,1),
+    (0,2,0,2),
+    (2,2,0,2),
+    (0,2,1,2),
+    (2,2,1,2)
 }
 
 def is_set(triple: set[tuple]) -> bool:
@@ -40,5 +40,5 @@ for candidate_set in combinations(TABLE, 3):
         sets_found += 1
         print(f'\nSET!!!\n{candidate_set[0]}\n{candidate_set[1]}\n{candidate_set[2]}')
 
-if not sets_found:
+if sets_found == 0:
     print(f'no sets found in {len(TABLE)} cards')
