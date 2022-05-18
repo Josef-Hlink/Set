@@ -10,16 +10,17 @@ Author: J.D. Hamelink
 Date: May 2022
 """
 
-import random                                   # taking random cards from deck
-import time                                     # tracking experiment time
-from itertools import product, combinations     # mathematical stuff I couldn't be bothered to write out
-from typing import TypeAlias                    # type hinting <3
-from functools import cache                     # major speed increase
+import random                           # taking random cards from deck
+import time                             # tracking experiment time
+from itertools import product           # taking all potential sets on a board
+from itertools import combinations      # mathematical stuff I couldn't be bothered to write out
+from typing import TypeAlias            # type hinting <3
+from functools import cache             # major speed boost
 
 Card: TypeAlias = tuple[int]
 
 def main():
-    # 1e3 = 1K, 1e5 = 100K, etc. this notation makes it easier to switch n_games 
+    # 1e3 = 1K, 1e5 = 100K, etc. this notation makes it easier to switch n_games imo
     n_games: int = 1e3
     random.seed(123)
     
