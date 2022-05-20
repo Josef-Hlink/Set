@@ -1,11 +1,11 @@
 """
-Functional approach at solving the mathematics of SET
-------------------------------------------------------------------
-This script can be configured to run any number of set games,
-with different numbers of attributes and variations.
+Brute-force approach at solving the "anti-set" problem
+-------------------------------------------------------------------
+This script is used for a brute-force approach at finding the
+largest anti-set by playing a number of complete traditional games.
 It will return the largest number of cards that were on the table,
 along with what set has been found on that table.
-------------------------------------------------------------------
+-------------------------------------------------------------------
 Author: J.D. Hamelink
 Date: May 2022
 """
@@ -23,10 +23,6 @@ def main():
     # 1e3 = 1K, 1e5 = 100K, etc. this notation makes it easier to switch n_games imo
     n_games: int = 1e3
     random.seed(123)
-    
-    global N_ATTRIBUTES, N_VARIATIONS
-    N_ATTRIBUTES = 4        # for "normal" SET: number, color, shape, filling
-    N_VARIATIONS = 3        # for "normal" SET: 123,    gbr,   dwp,   ehf
     
     highest: int = 0                    # largest number of cards on table
     highest_table: set[Card] = set()    # table where ^ was encountered
@@ -54,7 +50,7 @@ def main():
 def game(highest: int, highest_table: set[Card], set_in_highest: set[Card]) -> tuple[int, set[Card], set[Card]]:
     """Does one playout of a SET game where the computer finds all valid sets until deck is empty"""
 
-    deck: set[Card] = set(product(*[range(N_VARIATIONS) for _ in range(N_ATTRIBUTES)]))
+    deck: set[Card] = set(product(*[range(3) for _ in range(4)]))
     table: set[Card]  = set()
 
     def draw() -> Card:
@@ -65,11 +61,11 @@ def game(highest: int, highest_table: set[Card], set_in_highest: set[Card]) -> t
 
     while True:
         # fill up table until minimum amount of cards are present
-        while len(table) < N_VARIATIONS**2:
+        while len(table) < 9:
             if not deck: break
             table.add(draw())
         # play one round; see if any sets are present on the table
-        for candidate_set in combinations(table, N_VARIATIONS):
+        for candidate_set in combinations(table, 3):
             if is_set(candidate_set):
                 if len(table) > highest:
                     highest, highest_table, set_in_highest = len(table), table.copy(), candidate_set
@@ -84,10 +80,10 @@ def game(highest: int, highest_table: set[Card], set_in_highest: set[Card]) -> t
 @cache
 def is_set(candidate: set[Card]) -> bool:
     """Checks if a triple of cards is a valid set"""
-    for i in range(N_ATTRIBUTES):
+    for i in range(4):
         # attribute variations must either be identical or all unique
         # if number of unique values is neither 1 nor n_variations, the candidate can not be valid
-        if len({candidate[j][i] for j in range(N_VARIATIONS)}) in range(2, N_VARIATIONS): return False
+        if len({candidate[j][i] for j in range(3)}) == 2: return False
     return True
 
 
