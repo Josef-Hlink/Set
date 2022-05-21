@@ -16,12 +16,18 @@ from itertools import product           # taking all potential sets on a board
 from itertools import combinations      # mathematical stuff I couldn't be bothered to write out
 from typing import TypeAlias            # type hinting <3
 from functools import cache             # major speed boost
+import argparse                         # easier experiment settings
 
 Card: TypeAlias = tuple[int]
 
 def main():
-    # 1e3 = 1K, 1e5 = 100K, etc. this notation makes it easier to switch n_games imo
-    n_games: int = 1e3
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-n', '--n_games', type=int, help='set the number of games to play (order of magnitude)')
+    args = parser.parse_args()
+    if args.n_games is not None:
+        n_games: int = 10 ** args.n_games
+    else:
+        n_games: int = 1e3
     random.seed(123)
     
     highest: int = 0                    # largest number of cards on table
