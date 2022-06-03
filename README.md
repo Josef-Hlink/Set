@@ -77,7 +77,7 @@ My approach
 In main.py, I run a set number of games and keep track of the largest number of cards that has been present on the table.
 This number minus one should be the answer to the question about the biggest "anti-set" that has been encountered.
 
-10M games took my MacBook Air M1 roughly hours, and the largest number of cards present on the table was only 19.
+10M games took my MacBook Air M1 roughly 10 hours, and the largest number of cards present on the table was only 19.
 Unless an even better example can be thought of than the one that Charlotte Chan showed, the theoretical limit should be 21.
 
 After running this experiment, I added a `@cache` decorator to `is_set()`, resulting in a speedup of ±300%.
